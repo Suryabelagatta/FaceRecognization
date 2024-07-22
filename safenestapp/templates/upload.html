@@ -1,0 +1,33 @@
+<!-- recognition/templates/recognition/upload.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Recognition</title>
+</head>
+<body>
+    <h1>Upload an Image</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if uploaded_file_url %}
+        <h2>Uploaded Image:</h2>
+        <img src="{{ uploaded_file_url }}" alt="Uploaded Image" width="300">
+        <h2>Matched Images:</h2>
+        {% if matched_images %}
+            <ul>
+                {% for img in matched_images %}
+                    <li>
+                        <img src="{{ img }}" alt="Matched Image" width="300">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matches found.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
